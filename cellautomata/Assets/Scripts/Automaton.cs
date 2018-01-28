@@ -7,6 +7,17 @@ public class Automaton : MonoBehaviour
     public bool did_play_action;
     public bool did_stop_action;
 
+    // audio
+    public AudioSource source;
+    private AudioClip play_sound;
+    private AudioClip stop_sound;
+    public AudioClip toggle_sound;
+    private float play_volume = 0.5f;
+    private float stop_volume = 0.5f;
+    public float toggle_volume = 0.5f;
+    public float toggle_high_pitch_range = 4.5f;
+    public float toggle_low_pitch_range = 0.2f;
+
     // puzzle-specific
     private uint x_size;
     private uint y_size;
@@ -29,6 +40,12 @@ public class Automaton : MonoBehaviour
     // use this for initialization
     public void Initialize(uint automaton_id)
     {
+        // audio
+        source = GetComponent<AudioSource>();
+        play_sound = Resources.Load("Audio/chopped_drums/snap") as AudioClip;
+        stop_sound = Resources.Load("Audio/chopped_drums/snare-smear") as AudioClip;
+        toggle_sound = Resources.Load("Audio/sound effects/Pop_G") as AudioClip;
+
         did_play_action = false;
         did_stop_action = false;
 
@@ -168,6 +185,7 @@ public class Automaton : MonoBehaviour
     private void PauseAutomaton()
     {
         did_stop_action = true;
+        source.PlayOneShot(stop_sound, stop_volume);
         CancelInvoke();
     }
 
@@ -175,6 +193,7 @@ public class Automaton : MonoBehaviour
     private void RunAutomaton()
     {
         did_play_action = true;
+        source.PlayOneShot(play_sound, play_volume);
         SetAllClickable(false);
         InvokeRepeating("TickCells", 0, 0.2f);
     }

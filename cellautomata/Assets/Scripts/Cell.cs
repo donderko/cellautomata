@@ -41,6 +41,9 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         if (clickable) {
+            Automaton parent = transform.parent.gameObject.GetComponent<Automaton>();
+            parent.source.pitch = Random.Range(parent.toggle_low_pitch_range, parent.toggle_high_pitch_range);
+            parent.source.PlayOneShot(parent.toggle_sound, parent.toggle_volume);
             SetAlive(!alive);
         }
     }
