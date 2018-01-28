@@ -65,14 +65,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f8145fd7119824cafc8d269e73c52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alive_editable_img: {fileID: 21300002, guid: 34291d45c7151e3468366da6ff5b3ab0, type: 3}
-  alive_uneditable_img: {fileID: 21300002, guid: 610a0b362cbfa964aa551baf295bb729,
+  alive_editable_img: {fileID: 21300000, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  alive_uneditable_img: {fileID: 21300020, guid: e9dc1bd47b818b741ac1b31a7e54401b,
     type: 3}
-  dead_editable_img: {fileID: 21300000, guid: 34291d45c7151e3468366da6ff5b3ab0, type: 3}
-  dead_uneditable_img: {fileID: 21300000, guid: 610a0b362cbfa964aa551baf295bb729,
+  dead_editable_img: {fileID: 21300002, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  dead_uneditable_img: {fileID: 21300022, guid: e9dc1bd47b818b741ac1b31a7e54401b,
     type: 3}
-  alive_target_img: {fileID: 21300006, guid: 34291d45c7151e3468366da6ff5b3ab0, type: 3}
-  dead_target_img: {fileID: 21300004, guid: 34291d45c7151e3468366da6ff5b3ab0, type: 3}
+  alive_target_img: {fileID: 21300004, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  dead_target_img: {fileID: 21300006, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  empty_img: {fileID: 21300018, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
 --- !u!212 &212787561823935482
 SpriteRenderer:
   m_ObjectHideFlags: 1

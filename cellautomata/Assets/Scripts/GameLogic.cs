@@ -12,7 +12,7 @@ public class GameLogic : MonoBehaviour
     {
         // setup initial automaton
         current_automaton = null;
-        automaton_id = 2;
+        automaton_id = 1;
         LoadAutomaton();
     }
 
@@ -58,8 +58,10 @@ public class GameLogic : MonoBehaviour
         PlayButtonBehavior play_btn = GameObject.Find("Play Button").GetComponent<PlayButtonBehavior>();
         StopButtonBehavior stop_btn = GameObject.Find("Stop Button").GetComponent<StopButtonBehavior>();
         ResetButtonBehavior reset_btn = GameObject.Find("Reset Button").GetComponent<ResetButtonBehavior>();
+        StepButtonBehavior step_btn = GameObject.Find("Step Button").GetComponent<StepButtonBehavior>();
         play_btn.automaton = current_automaton;
         stop_btn.automaton = current_automaton;
         reset_btn.automaton = current_automaton;
+        step_btn.automaton = current_automaton;
     }
 }

@@ -45,6 +45,12 @@ public class Automaton : MonoBehaviour
                 InitAutomaton = AutomatonInit2;
                 VictoryCondition = VictoryCondition2;
                 break;
+            case 5:
+                x_size = x_size_5;
+                y_size = y_size_5;
+                InitAutomaton = AutomatonInit5;
+                VictoryCondition = VictoryCondition5;
+                break;
             default:
                 x_size = x_size_default;
                 y_size = y_size_default;
@@ -80,7 +86,7 @@ public class Automaton : MonoBehaviour
     // do this when the play button is pressed
     public void PlayButtonAction()
     {
-        if (!running) {
+        if (!running && !victory) {
             running = true;
             if (first_run) {
                 first_run = false;
@@ -102,6 +108,8 @@ public class Automaton : MonoBehaviour
     // do this when the reset button is pressed
     public void ResetButtonAction()
     {
+        victory = false;
+
         if (running) {
             running = false;
             first_run = true;
@@ -115,6 +123,18 @@ public class Automaton : MonoBehaviour
                 LoadStates();
             }
             first_run = true;
+        }
+    }
+
+    // do this when the step button is pressed
+    public void StepButtonAction()
+    {
+        if (!running && !victory) {
+            if (first_run) {
+                first_run = false;
+                SaveStates();
+            }
+            TickCells();
         }
     }
 
@@ -144,10 +164,8 @@ public class Automaton : MonoBehaviour
     // run the automaton
     private void RunAutomaton()
     {
-        if (!victory) {
-            SetAllClickable(false);
-            InvokeRepeating("TickCells", 0, 0.2f);
-        }
+        SetAllClickable(false);
+        InvokeRepeating("TickCells", 0, 0.2f);
     }
 
     // stores the alive/dead states of all cells
@@ -284,43 +302,70 @@ public class Automaton : MonoBehaviour
     /// TODO: move these into their own class/file
     /////////////////////////////////////////////////
 
-    uint x_size_1 = 15;
-    uint y_size_1 = 10;
+    uint x_size_1 = 5;
+    uint y_size_1 = 3;
 
     private void AutomatonInit1()
     {
-        AutomatonInitDefault();
-
-        cells[1, 1].SetAlive(true);
-        cells[1, 1].SetEditable(false);
-
-        cells[4, 4].SetAlive(false);
-        cells[4, 4].SetEditable(false);
-
-        cells[7, 7].SetAlive(true);
-        cells[7, 7].SetEditable(false);
-    }
-
-    private bool VictoryCondition1()
-    {
-        return false;
-    }
-
-    // can be 11
-    uint x_size_2 = 10;
-    uint y_size_2 = 4;
-
-    private void AutomatonInit2()
-    {
-        for (uint x = 6; x < x_size; ++x) {
+        for (uint x = 3; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
                 cells[x, y].SetAlive(false);
                 cells[x, y].SetEditable(false);
             }
         }
+        
+        cells[4, 0].SetTarget(true);
+        cells[4, 1].SetTarget(true);
+        cells[4, 2].SetTarget(true);
+    }
+
+    private bool VictoryCondition1()
+    {
+        if (cells[4, 0].IsAlive() || cells[4, 1].IsAlive() || cells[4, 2].IsAlive()) {
+            return true;
+        }
+        return false;
+    }
+
+    uint x_size_2 = 9;
+    uint y_size_2 = 3;
+
+    private void AutomatonInit2()
+    {
+        cells[3, 0].SetEditable(false);
+        cells[3, 1].SetEditable(false);
+        cells[3, 2].SetEmpty(true);
+        cells[4, 0].SetEditable(false);
+        cells[4, 1].SetEditable(false);
+        cells[4, 2].SetTarget(true);
+        cells[5, 0].SetEditable(false);
+        cells[5, 1].SetEditable(false);
+        cells[5, 2].SetEmpty(true);
     }
 
     private bool VictoryCondition2()
+    {
+        return cells[4, 2].IsAlive();
+    }
+
+    // can be 11
+    uint x_size_5 = 10;
+    uint y_size_5 = 4;
+
+    private void AutomatonInit5()
+    {
+        for (uint x = 6; x < x_size - 1; ++x) {
+            for (uint y = 0; y < y_size; ++y) {
+                cells[x, y].SetAlive(false);
+                cells[x, y].SetEditable(false);
+            }
+        }
+        for (uint y = 0; y < y_size; ++y) {
+            cells[x_size - 1, y].SetTarget(true);
+        }
+    }
+
+    private bool VictoryCondition5()
     {
         for (uint y = 0; y < y_size; ++y) {
             if (cells[x_size - 1, y].IsAlive()) {
@@ -342,7 +387,8 @@ public class Automaton : MonoBehaviour
                     false, // alive
                     true, // clickable
                     true, // editable
-                    false // target
+                    false, // target
+                    false // empty
                 );
             }
         }

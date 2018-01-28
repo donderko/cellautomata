@@ -8,11 +8,13 @@ public class Cell : MonoBehaviour
     public Sprite dead_uneditable_img;
     public Sprite alive_target_img;
     public Sprite dead_target_img;
+    public Sprite empty_img;
 
     private bool alive;
     private bool clickable;
     private bool editable;
     private bool target;
+    private bool empty;
 
     void Start()
     {
@@ -20,12 +22,13 @@ public class Cell : MonoBehaviour
     }
 
     // use this for initialization
-    public void Initialize(bool alive, bool clickable, bool editable, bool target)
+    public void Initialize(bool alive, bool clickable, bool editable, bool target, bool empty)
     {
         SetAlive(alive);
         SetClickable(clickable);
         SetEditable(editable);
         SetTarget(target);
+        SetEmpty(empty);
     }
 
     // called once per frame
@@ -88,9 +91,23 @@ public class Cell : MonoBehaviour
     {
         this.target = target;
         if (target) {
-            // target cells are always unclickable and uneditable
+            // target cells are always unclickable, uneditable, and non-empty
             clickable = false;
             editable = false;
+            empty = false;
+        }
+        UpdateSprite();
+    }
+
+    // set empty state
+    public void SetEmpty(bool empty)
+    {
+        this.empty = empty;
+        if (empty) {
+            // empty cells are always unclickable, uneditable, and non-targets
+            clickable = false;
+            editable = false;
+            target = false;
         }
         UpdateSprite();
     }
@@ -98,7 +115,9 @@ public class Cell : MonoBehaviour
     // update appearance
     private void UpdateSprite()
     {
-        if (alive) {
+        if (empty) {
+            GetComponent<SpriteRenderer>().sprite = empty_img;
+        } else if (alive) {
             if (target) {
                 GetComponent<SpriteRenderer>().sprite = alive_target_img;
             } else if (editable) {
