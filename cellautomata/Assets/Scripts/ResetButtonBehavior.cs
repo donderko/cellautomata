@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayButtonBehavior : MonoBehaviour
+public class ResetButtonBehavior : MonoBehaviour
 {
     public Automaton automaton;
 
@@ -19,7 +19,7 @@ public class PlayButtonBehavior : MonoBehaviour
     private void OnMouseDown()
     {
         if (automaton != null) {
-            automaton.PlayButtonAction();
+            automaton.ResetButtonAction();
         }
     }
 }

@@ -19,7 +19,7 @@ public class StopButtonBehavior : MonoBehaviour
     private void OnMouseDown()
     {
         if (automaton != null) {
-            automaton.Stop();
+            automaton.StopButtonAction();
         }
     }
 }

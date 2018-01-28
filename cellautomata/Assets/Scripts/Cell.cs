@@ -2,14 +2,17 @@
 
 public class Cell : MonoBehaviour
 {
-    public Sprite alive_img;
+    public Sprite alive_editable_img;
     public Sprite alive_uneditable_img;
-    public Sprite dead_img;
+    public Sprite dead_editable_img;
     public Sprite dead_uneditable_img;
+    public Sprite alive_target_img;
+    public Sprite dead_target_img;
 
     private bool alive;
     private bool clickable;
     private bool editable;
+    private bool target;
 
     void Start()
     {
@@ -17,11 +20,12 @@ public class Cell : MonoBehaviour
     }
 
     // use this for initialization
-    public void Initialize(bool alive, bool clickable, bool editable)
+    public void Initialize(bool alive, bool clickable, bool editable, bool target)
     {
         SetAlive(alive);
         SetClickable(clickable);
         SetEditable(editable);
+        SetTarget(target);
     }
 
     // called once per frame
@@ -73,7 +77,20 @@ public class Cell : MonoBehaviour
     {
         this.editable = editable;
         if (!editable) {
+            // uneditable cells are always unclickable
             clickable = false;
+        }
+        UpdateSprite();
+    }
+
+    // set target state
+    public void SetTarget(bool target)
+    {
+        this.target = target;
+        if (target) {
+            // target cells are always unclickable and uneditable
+            clickable = false;
+            editable = false;
         }
         UpdateSprite();
     }
@@ -82,15 +99,19 @@ public class Cell : MonoBehaviour
     private void UpdateSprite()
     {
         if (alive) {
-            if (editable) {
-                GetComponent<SpriteRenderer>().sprite = alive_img;
-            } else {
+            if (target) {
+                GetComponent<SpriteRenderer>().sprite = alive_target_img;
+            } else if (editable) {
+                GetComponent<SpriteRenderer>().sprite = alive_editable_img;
+            } else { // uneditable
                 GetComponent<SpriteRenderer>().sprite = alive_uneditable_img;
             }
         } else { // dead
-            if (editable) {
-                GetComponent<SpriteRenderer>().sprite = dead_img;
-            } else {
+            if (target) {
+                GetComponent<SpriteRenderer>().sprite = dead_target_img;
+            } else if (editable) {
+                GetComponent<SpriteRenderer>().sprite = dead_editable_img;
+            } else { // uneditable
                 GetComponent<SpriteRenderer>().sprite = dead_uneditable_img;
             }
         }

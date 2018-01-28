@@ -25,14 +25,14 @@ public class Automaton : MonoBehaviour
     }
 
     // use this for initialization
-    public void Initialize(uint puzzle_id)
+    public void Initialize(uint automaton_id)
     {
         running = false;
         victory = false;
         first_run = true;
 
-        // select puzzle
-        switch (puzzle_id) {
+        // select automaton
+        switch (automaton_id) {
             case 1:
                 x_size = x_size_1;
                 y_size = y_size_1;
@@ -53,50 +53,32 @@ public class Automaton : MonoBehaviour
                 break;
         }
 
-        // init puzzle
+        // init automaton
         InstantiateCells();
         ResetAutomaton();
     }
 
     // called once per frame
-    // do all of the complicated, state-dependent logic here (keep it out of the helper functions)
+    // do all of the complicated, state-dependent logic here and in the ButtonAction functions (keep it out of the helper functions)
     void Update()
     {
         // pause or resume automata
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (running) {
-                running = false;
-                PauseAutomaton();
+                StopButtonAction();
             } else { // paused
-                running = true;
-                if (first_run) {
-                    first_run = false;
-                    SaveStates();
-                }
-                RunAutomaton();
+                PlayButtonAction();
             }
         }
 
         // reset automata
         if (Input.GetKeyDown(KeyCode.R)) {
-            if (running) {
-                running = false;
-                first_run = true;
-                PauseAutomaton();
-                ResetAutomaton();
-                LoadStates();
-            } else { // paused
-                running = false;
-                ResetAutomaton();
-                if (!first_run) {
-                    LoadStates();
-                }
-                first_run = true;
-            }
+            ResetButtonAction();
         }
     }
 
-    public void Play()
+    // do this when the play button is pressed
+    public void PlayButtonAction()
     {
         if (!running) {
             running = true;
@@ -108,7 +90,8 @@ public class Automaton : MonoBehaviour
         }
     }
 
-    public void Stop()
+    // do this when the stop button is pressed
+    public void StopButtonAction()
     {
         if (running) {
             running = false;
@@ -116,15 +99,35 @@ public class Automaton : MonoBehaviour
         }
     }
 
+    // do this when the reset button is pressed
+    public void ResetButtonAction()
+    {
+        if (running) {
+            running = false;
+            first_run = true;
+            PauseAutomaton();
+            ResetAutomaton();
+            LoadStates();
+        } else { // paused
+            running = false;
+            ResetAutomaton();
+            if (!first_run) {
+                LoadStates();
+            }
+            first_run = true;
+        }
+    }
+
     // re-initialize the automaton
     private void ResetAutomaton()
     {
-        // init all cells to be dead, editable, and clickable
+        // init all cells to be dead, editable, clickable, and non-targets
         for (uint x = 0; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
                 cells[x, y].SetAlive(false);
                 cells[x, y].SetEditable(true);
                 cells[x, y].SetClickable(true);
+                cells[x, y].SetTarget(false);
             }
         }
 
@@ -338,7 +341,8 @@ public class Automaton : MonoBehaviour
                 cells[x, y].Initialize(
                     false, // alive
                     true, // clickable
-                    true // editable
+                    true, // editable
+                    false // target
                 );
             }
         }

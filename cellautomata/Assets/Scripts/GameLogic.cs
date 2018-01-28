@@ -14,12 +14,6 @@ public class GameLogic : MonoBehaviour
         current_automaton = null;
         automaton_id = 2;
         LoadAutomaton();
-
-        // connect buttons to automaton
-        PlayButtonBehavior play_btn = GameObject.Find("Play Button").GetComponent<PlayButtonBehavior>();
-        StopButtonBehavior stop_btn = GameObject.Find("Stop Button").GetComponent<StopButtonBehavior>();
-        play_btn.automaton = current_automaton;
-        stop_btn.automaton = current_automaton;
     }
 
     // called once per frame
@@ -59,5 +53,13 @@ public class GameLogic : MonoBehaviour
         current_automaton = Instantiate(automaton_prefab, pos, Quaternion.identity);
         current_automaton.Initialize(automaton_id);
         current_automaton.name = "Automaton " + automaton_id;
+
+        // associate buttons with the new automaton
+        PlayButtonBehavior play_btn = GameObject.Find("Play Button").GetComponent<PlayButtonBehavior>();
+        StopButtonBehavior stop_btn = GameObject.Find("Stop Button").GetComponent<StopButtonBehavior>();
+        ResetButtonBehavior reset_btn = GameObject.Find("Reset Button").GetComponent<ResetButtonBehavior>();
+        play_btn.automaton = current_automaton;
+        stop_btn.automaton = current_automaton;
+        reset_btn.automaton = current_automaton;
     }
 }
