@@ -617,7 +617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fce5a002d1ffc749831a3eeea4648e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cell_board_prefab: {fileID: 114753284029181380, guid: ecd1027e95f8e854eae622c5ac15d626,
+  automaton_prefab: {fileID: 114753284029181380, guid: ecd1027e95f8e854eae622c5ac15d626,
     type: 2}
 --- !u!4 &899164409
 Transform:

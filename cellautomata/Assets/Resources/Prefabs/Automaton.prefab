@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4462664289181142}
   - component: {fileID: 114753284029181380}
   m_Layer: 0
-  m_Name: CellBoard
+  m_Name: Automaton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,5 +53,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cell_prefab: {fileID: 114753715458176794, guid: 9c68597d31aa3bb41902d004d1df3bb8,
     type: 2}
-  x_size: 0
-  y_size: 0

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    private bool alive;
-    private bool clickable;
-    private bool editable;
-
     public Sprite alive_img;
     public Sprite alive_uneditable_img;
     public Sprite dead_img;
     public Sprite dead_uneditable_img;
 
-    void Start() {}
+    private bool alive;
+    private bool clickable;
+    private bool editable;
+
+    void Start()
+    {
+
+    }
 
     // use this for initialization
     public void Initialize(bool alive, bool clickable, bool editable)
@@ -37,6 +37,17 @@ public class Cell : MonoBehaviour
             SetAlive(!alive);
         }
     }
+
+    /*
+    private void OnMouseOver()
+    {
+        //Debug.Log("OnMouseOver");
+            //if (Input.GetMouseButtonDown(0)) { Debug.Log("GetMouseButtonDown"); }
+        if (Input.GetMouseButton(0) && clickable && !alive) {
+            SetAlive(true);
+        }
+    }
+    */
 
     // set dead or alive state
     public void SetAlive(bool alive)
@@ -67,6 +78,7 @@ public class Cell : MonoBehaviour
         UpdateSprite();
     }
 
+    // update appearance
     private void UpdateSprite()
     {
         if (alive) {
