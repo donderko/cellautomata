@@ -4,6 +4,8 @@ using UnityEngine;
 public class Automaton : MonoBehaviour
 {
     public Cell cell_prefab;
+    public bool did_play_action;
+    public bool did_stop_action;
 
     // puzzle-specific
     private uint x_size;
@@ -27,6 +29,9 @@ public class Automaton : MonoBehaviour
     // use this for initialization
     public void Initialize(uint automaton_id)
     {
+        did_play_action = false;
+        did_stop_action = false;
+
         running = false;
         victory = false;
         first_run = true;
@@ -84,7 +89,7 @@ public class Automaton : MonoBehaviour
     }
 
     // do this when the play button is pressed
-    public void PlayButtonAction()
+    public bool PlayButtonAction()
     {
         if (!running && !victory) {
             running = true;
@@ -93,16 +98,20 @@ public class Automaton : MonoBehaviour
                 SaveStates();
             }
             RunAutomaton();
+            return true;
         }
+        return false;
     }
 
     // do this when the stop button is pressed
-    public void StopButtonAction()
+    public bool StopButtonAction()
     {
         if (running) {
             running = false;
             PauseAutomaton();
+            return true;
         }
+        return false;
     }
 
     // do this when the reset button is pressed
@@ -158,12 +167,14 @@ public class Automaton : MonoBehaviour
     // pause the automaton
     private void PauseAutomaton()
     {
+        did_stop_action = true;
         CancelInvoke();
     }
 
     // run the automaton
     private void RunAutomaton()
     {
+        did_play_action = true;
         SetAllClickable(false);
         InvokeRepeating("TickCells", 0, 0.2f);
     }
@@ -235,6 +246,8 @@ public class Automaton : MonoBehaviour
     // update all cells one time tick
     private void TickCells()
     {
+        SetAllEditable(false);
+
         // compute next states
         for (uint x = 0; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
