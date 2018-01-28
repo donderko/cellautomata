@@ -136,5 +136,12 @@ MonoBehaviour:
     type: 2}
   did_play_action: 0
   did_stop_action: 0
-  play_sound: {fileID: 0}
-  stop_sound: {fileID: 0}
+  source: {fileID: 0}
+  play_sound: {fileID: 8300000, guid: ef583a3cb4aadb143adb7255f6dca794, type: 3}
+  play_volume: 0.5
+  stop_sound: {fileID: 8300000, guid: 925a2bca4233f3c4aa182085cc85aea9, type: 3}
+  stop_volume: 0.5
+  toggle_sound: {fileID: 8300000, guid: 14f1a95f472a1b64a92156d3bf269588, type: 3}
+  toggle_volume: 0.5
+  toggle_high_pitch_range: 4.5
+  toggle_low_pitch_range: 0.2

@@ -10,6 +10,8 @@ public class Cell : MonoBehaviour
     public Sprite dead_target_img;
     public Sprite empty_img;
 
+    public AudioManagerBehavior audio_manager;
+
     private bool alive;
     private bool clickable;
     private bool editable;
@@ -41,9 +43,10 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         if (clickable) {
-            Automaton parent = transform.parent.gameObject.GetComponent<Automaton>();
-            parent.source.pitch = Random.Range(parent.toggle_low_pitch_range, parent.toggle_high_pitch_range);
-            parent.source.PlayOneShot(parent.toggle_sound, parent.toggle_volume);
+            //Automaton parent = transform.parent.gameObject.GetComponent<Automaton>();
+            //parent.source.pitch = Random.Range(parent.toggle_low_pitch_range, parent.toggle_high_pitch_range);
+            //parent.source.PlayOneShot(parent.toggle_sound, parent.toggle_volume);
+            audio_manager.PlayToggleSound();
             SetAlive(!alive);
         }
     }

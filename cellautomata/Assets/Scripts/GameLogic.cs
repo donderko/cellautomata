@@ -2,10 +2,10 @@
 
 public class GameLogic : MonoBehaviour
 {
-    public Automaton automaton_prefab;
+    //public Automaton automaton_prefab;
 
-    private uint automaton_id;
-    private Automaton current_automaton;
+    public uint automaton_id;
+    public Automaton automaton;
     private GameObject play_btn_obj;
     private GameObject stop_btn_obj;
     private PlayButtonBehavior play_btn;
@@ -16,6 +16,9 @@ public class GameLogic : MonoBehaviour
     // use this for initialization
     void Start()
     {
+        // initialize automaton
+        NewAutomaton();
+
         // get buttons
         play_btn_obj = GameObject.Find("Play Button");
         play_btn = play_btn_obj.GetComponent<PlayButtonBehavior>();
@@ -24,14 +27,17 @@ public class GameLogic : MonoBehaviour
         step_btn = GameObject.Find("Step Button").GetComponent<StepButtonBehavior>();
         reset_btn = GameObject.Find("Reset Button").GetComponent<ResetButtonBehavior>();
 
-        // setup initial automaton
-        current_automaton = null;
-        automaton_id = 1;
-        LoadAutomaton();
+        // associate buttons with the automaton
+        play_btn.automaton = automaton;
+        stop_btn.automaton = automaton;
+        reset_btn.automaton = automaton;
+        step_btn.automaton = automaton;
 
-        // button setup
-        current_automaton.did_play_action = false;
-        current_automaton.did_stop_action = false;
+        ResetButtons();
+    }
+
+    private void ResetButtons()
+    {
         stop_btn_obj.SetActive(false);
         play_btn_obj.SetActive(true);
     }
@@ -39,12 +45,12 @@ public class GameLogic : MonoBehaviour
     // called once per frame
     void Update()
     {
-        if (current_automaton.did_stop_action) {
-            current_automaton.did_stop_action = false;
+        if (automaton.did_stop_action) {
+            automaton.did_stop_action = false;
             stop_btn_obj.SetActive(false);
             play_btn_obj.SetActive(true);
-        } else if (current_automaton.did_play_action) {
-            current_automaton.did_play_action = false;
+        } else if (automaton.did_play_action) {
+            automaton.did_play_action = false;
             play_btn_obj.SetActive(false);
             stop_btn_obj.SetActive(true);
         }
@@ -53,39 +59,20 @@ public class GameLogic : MonoBehaviour
     public void PreviousAutomaton()
     {
         --automaton_id;
-        LoadAutomaton();
+        NewAutomaton();
+        ResetButtons();
     }
 
     public void NextAutomaton()
     {
         ++automaton_id;
-        LoadAutomaton();
+        NewAutomaton();
+        ResetButtons();
     }
 
-    private void LoadAutomaton()
+    private void NewAutomaton()
     {
-        // total kludge
-        if (current_automaton != null) {
-            GameObject obj = GameObject.Find("Automaton " + (automaton_id - 1));
-            if (obj != null) {
-                Destroy(obj);
-            }
-            obj = GameObject.Find("Automaton " + (automaton_id + 1));
-            if (obj != null) {
-                Destroy(obj);
-            }
-        }
-
-        // instantiate new automaton
-        Vector3 pos = new Vector3(0, 0, 0);
-        current_automaton = Instantiate(automaton_prefab, pos, Quaternion.identity);
-        current_automaton.Initialize(automaton_id);
-        current_automaton.name = "Automaton " + automaton_id;
-
-        // associate buttons with the new automaton
-        play_btn.automaton = current_automaton;
-        stop_btn.automaton = current_automaton;
-        reset_btn.automaton = current_automaton;
-        step_btn.automaton = current_automaton;
+        automaton.Initialize(automaton_id);
+        automaton.name = "Automaton " + automaton_id;
     }
 }

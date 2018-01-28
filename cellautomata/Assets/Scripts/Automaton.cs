@@ -8,19 +8,11 @@ public class Automaton : MonoBehaviour
     public bool did_stop_action;
 
     // audio
-    public AudioSource source;
-    private AudioClip play_sound;
-    private AudioClip stop_sound;
-    public AudioClip toggle_sound;
-    private float play_volume = 0.5f;
-    private float stop_volume = 0.5f;
-    public float toggle_volume = 0.5f;
-    public float toggle_high_pitch_range = 4.5f;
-    public float toggle_low_pitch_range = 0.2f;
+    public AudioManagerBehavior audio_manager;
 
     // puzzle-specific
-    private uint x_size;
-    private uint y_size;
+    private uint x_size = 0;
+    private uint y_size = 0;
     private Action InitAutomaton;
     private Func<bool> VictoryCondition;
 
@@ -29,8 +21,10 @@ public class Automaton : MonoBehaviour
     private bool victory;
     private bool first_run;
     private Cell[,] cells;
-    private bool[,] nest_states;
+    private bool[,] next_states;
     private bool[,] saved_states;
+    private uint[] row_alive_counts;
+    private uint[] column_alive_counts;
 
     void Start()
     {
@@ -40,11 +34,8 @@ public class Automaton : MonoBehaviour
     // use this for initialization
     public void Initialize(uint automaton_id)
     {
-        // audio
-        source = GetComponent<AudioSource>();
-        play_sound = Resources.Load("Audio/chopped_drums/snap") as AudioClip;
-        stop_sound = Resources.Load("Audio/chopped_drums/snare-smear") as AudioClip;
-        toggle_sound = Resources.Load("Audio/sound effects/Pop_G") as AudioClip;
+        CancelInvoke();
+        DestroyCurrentCells();
 
         did_play_action = false;
         did_stop_action = false;
@@ -84,6 +75,15 @@ public class Automaton : MonoBehaviour
         // init automaton
         InstantiateCells();
         ResetAutomaton();
+    }
+
+    private void DestroyCurrentCells()
+    {
+        for (uint x = 0; x < x_size; ++x) {
+            for (uint y = 0; y < y_size; ++y) {
+                Destroy(cells[x, y].transform.gameObject);
+            }
+        }
     }
 
     // called once per frame
@@ -185,7 +185,8 @@ public class Automaton : MonoBehaviour
     private void PauseAutomaton()
     {
         did_stop_action = true;
-        source.PlayOneShot(stop_sound, stop_volume);
+        audio_manager.PlayStopSound();
+        //source.PlayOneShot(stop_sound, stop_volume);
         CancelInvoke();
     }
 
@@ -193,7 +194,8 @@ public class Automaton : MonoBehaviour
     private void RunAutomaton()
     {
         did_play_action = true;
-        source.PlayOneShot(play_sound, play_volume);
+        audio_manager.PlayPlaySound();
+        //source.PlayOneShot(play_sound, play_volume);
         SetAllClickable(false);
         InvokeRepeating("TickCells", 0, 0.2f);
     }
@@ -243,8 +245,10 @@ public class Automaton : MonoBehaviour
     {
         // init arrays
         cells = new Cell[x_size, y_size];
-        nest_states = new bool[x_size, y_size];
+        next_states = new bool[x_size, y_size];
         saved_states = new bool[x_size, y_size];
+        row_alive_counts = new uint[y_size];
+        column_alive_counts = new uint[x_size];
 
         // compute offsets so that the grid is centered on the screen
         float x_offset = (x_size - 1) / 2 + (x_size % 2 == 0 ? 0.5f : 0.0f); // magic
@@ -257,6 +261,7 @@ public class Automaton : MonoBehaviour
                 Vector3 pos = new Vector3(x - x_offset, y - y_offset, 0) * 1;
                 cells[x, y] = Instantiate(cell_prefab, pos, Quaternion.identity) as Cell;
                 cells[x, y].transform.SetParent(this.transform);
+                cells[x, y].audio_manager = audio_manager;
                 cells[x, y].name = "Cell (" + x + "," + y + ")";
             }
         }
@@ -273,15 +278,15 @@ public class Automaton : MonoBehaviour
                 uint alive_neighbor_count = AliveNeighborCount(x, y);
                 if (cells[x, y].IsAlive()) {
                     if (alive_neighbor_count < 2 || alive_neighbor_count > 3) {
-                        nest_states[x, y] = false;
+                        next_states[x, y] = false;
                     } else {
-                        nest_states[x, y] = true;
+                        next_states[x, y] = true;
                     }
                 } else { // the cell is dead
                     if (alive_neighbor_count == 3) {
-                        nest_states[x, y] = true;
+                        next_states[x, y] = true;
                     } else {
-                        nest_states[x, y] = false;
+                        next_states[x, y] = false;
                     }
                 }
             }
@@ -289,14 +294,25 @@ public class Automaton : MonoBehaviour
 
         // apply next states
         for (uint x = 0; x < x_size; ++x) {
+            column_alive_counts[x] = 0;
+        }
+        for (uint y = 0; y < y_size; ++y) {
+            row_alive_counts[y] = 0;
+        }
+        for (uint x = 0; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
-                if (nest_states[x, y]) {
+                if (next_states[x, y]) {
                     cells[x, y].SetAlive(true);
+                    ++row_alive_counts[y];
+                    ++column_alive_counts[x];
                 } else {
                     cells[x, y].SetAlive(false);
                 }
             }
         }
+
+        // play sound
+        audio_manager.PlayAutomatonSound(row_alive_counts, column_alive_counts);
 
         if (VictoryCondition()) {
             DoVictory();
