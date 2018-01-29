@@ -1111,6 +1111,15 @@ MonoBehaviour:
   click_volume: 0.4
   reset_sound: {fileID: 8300000, guid: e89cf1169d4532748b6a4f28020a7450, type: 3}
   reset_volume: 0.5
+  sandbox_toggle_sound1: {fileID: 8300000, guid: c79290b6fa3b65a4ebae3059e359f197,
+    type: 3}
+  sandbox_toggle_volume1: 0.5
+  sandbox_toggle_sound2: {fileID: 8300000, guid: 9499aac7dbc023741a80ac5fca81ad38,
+    type: 3}
+  sandbox_toggle_volume2: 0.5
+  sandbox_toggle_sound3: {fileID: 8300000, guid: ef583a3cb4aadb143adb7255f6dca794,
+    type: 3}
+  sandbox_toggle_volume3: 0.5
 --- !u!4 &679929976
 Transform:
   m_ObjectHideFlags: 0

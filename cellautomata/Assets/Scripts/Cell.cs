@@ -18,6 +18,10 @@ public class Cell : MonoBehaviour
     private bool target;
     private bool empty;
 
+    public bool sandbox_cell1 = false;
+    public bool sandbox_cell2 = false;
+    public bool sandbox_cell3 = false;
+
     void Start()
     {
 
@@ -43,7 +47,15 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         if (clickable) {
-            audio_manager.PlayToggleSound();
+            if (sandbox_cell1) {
+                audio_manager.PlaySandboxToggleSound1();
+            } else if (sandbox_cell2) {
+                audio_manager.PlaySandboxToggleSound2();
+            } else if (sandbox_cell3) {
+                audio_manager.PlaySandboxToggleSound3();
+            } else {
+                audio_manager.PlayToggleSound();
+            }
             SetAlive(!alive);
         }
     }
@@ -74,6 +86,8 @@ public class Cell : MonoBehaviour
         if (!editable) {
             // uneditable cells are always unclickable
             clickable = false;
+        } else {
+            clickable = true;
         }
         UpdateSprite();
     }
@@ -96,12 +110,18 @@ public class Cell : MonoBehaviour
     {
         this.empty = empty;
         if (empty) {
-            // empty cells are always unclickable, uneditable, and non-targets
+            // empty cells are always unclickable, uneditable, non-targets, and dead
             clickable = false;
             editable = false;
             target = false;
+            alive = false;
         }
         UpdateSprite();
+    }
+
+    public bool IsEmpty()
+    {
+        return empty;
     }
 
     // update appearance

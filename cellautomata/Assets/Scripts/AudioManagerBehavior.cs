@@ -26,6 +26,15 @@ public class AudioManagerBehavior : MonoBehaviour
     public AudioClip reset_sound;
     public float reset_volume = 0.5f;
 
+    public AudioClip sandbox_toggle_sound1;
+    public float sandbox_toggle_volume1 = 0.5f;
+
+    public AudioClip sandbox_toggle_sound2;
+    public float sandbox_toggle_volume2 = 0.5f;
+
+    public AudioClip sandbox_toggle_sound3;
+    public float sandbox_toggle_volume3 = 0.5f;
+
     void Start ()
     {
 		
@@ -57,6 +66,24 @@ public class AudioManagerBehavior : MonoBehaviour
     {
         source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
         source.PlayOneShot(toggle_sound, toggle_volume);
+    }
+
+    public void PlaySandboxToggleSound1()
+    {
+        source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
+        source.PlayOneShot(sandbox_toggle_sound1, sandbox_toggle_volume1);
+    }
+
+    public void PlaySandboxToggleSound2()
+    {
+        source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
+        source.PlayOneShot(sandbox_toggle_sound2, sandbox_toggle_volume2);
+    }
+
+    public void PlaySandboxToggleSound3()
+    {
+        source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
+        source.PlayOneShot(sandbox_toggle_sound3, sandbox_toggle_volume3);
     }
 
     public void PlayAutomatonSound(uint[] row_counts, uint[] column_counts)

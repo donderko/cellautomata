@@ -330,6 +330,9 @@ public class Automaton : MonoBehaviour
         // compute next states
         for (uint x = 0; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
+                if (cells[x, y].IsEmpty()) {
+                    continue;
+                }
                 uint alive_neighbor_count = AliveNeighborCount(x, y);
                 if (cells[x, y].IsAlive()) {
                     if (alive_neighbor_count < 2 || alive_neighbor_count > 3) {
@@ -364,6 +367,13 @@ public class Automaton : MonoBehaviour
                     cells[x, y].SetAlive(false);
                 }
             }
+        }
+
+        for (uint x = 0; x < x_size; ++x) {
+            Debug.Log("column_alive_counts[" + x + "] = " + column_alive_counts[x]);
+        }
+        for (uint y = 0; y < y_size; ++y) {
+            Debug.Log("row_alive_counts[" + y + "] = " + row_alive_counts[y]);
         }
 
         // play sound
@@ -407,10 +417,25 @@ public class Automaton : MonoBehaviour
     /// TODO: move these into their own class/file
     /////////////////////////////////////////////////
 
-    uint x_size_1 = 5;
+    uint x_size_1 = 3;
     uint y_size_1 = 3;
 
     private void AutomatonInit1()
+    {
+        //cells[3, 0].SetEditable(false);
+        cells[1, 0].SetTarget(true);
+        cells[1, 2].SetTarget(true);
+    }
+
+    private bool VictoryCondition1()
+    {
+        return cells[1, 2].IsAlive() || cells[1, 0].IsAlive();
+    }
+
+    uint x_size_2 = 5;
+    uint y_size_2 = 3;
+
+    private void AutomatonInit2()
     {
         for (uint x = 3; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
@@ -424,7 +449,7 @@ public class Automaton : MonoBehaviour
         cells[4, 2].SetTarget(true);
     }
 
-    private bool VictoryCondition1()
+    private bool VictoryCondition2()
     {
         if (cells[4, 0].IsAlive() || cells[4, 1].IsAlive() || cells[4, 2].IsAlive()) {
             return true;
@@ -432,10 +457,10 @@ public class Automaton : MonoBehaviour
         return false;
     }
 
-    uint x_size_2 = 9;
-    uint y_size_2 = 3;
+    uint x_size_3 = 9;
+    uint y_size_3 = 3;
 
-    private void AutomatonInit2()
+    private void AutomatonInit3()
     {
         cells[3, 0].SetEditable(false);
         cells[3, 1].SetEditable(false);
@@ -448,37 +473,44 @@ public class Automaton : MonoBehaviour
         cells[5, 2].SetEmpty(true);
     }
 
-    private bool VictoryCondition2()
+    private bool VictoryCondition3()
     {
         return cells[4, 2].IsAlive();
     }
 
-    uint x_size_3 = 1; // TODO
-    uint y_size_3 = 1; // TODO
-
-    private void AutomatonInit3()
-    {
-        // TODO
-    }
-
-    private bool VictoryCondition3()
-    {
-        // TODO
-        return false;
-    }
-
-    uint x_size_4 = 1; // TODO
-    uint y_size_4 = 1; // TODO
+    uint x_size_4 = 9;
+    uint y_size_4 = 9;
 
     private void AutomatonInit4()
     {
-        // TODO
+
+        for (uint x = 0; x < x_size; ++x) {
+            for (uint y = 0; y < y_size; ++y) {
+                cells[x, y].SetAlive(false);
+                cells[x, y].SetEditable(false);
+            }
+        }
+
+        for (uint x = 3; x < 6; ++x) {
+            for (uint y = 3; y < 6; ++y) {
+                cells[x, y].SetEditable(true);
+            }
+        }
+
+        cells[8, 4].SetTarget(true);
+        cells[4, 8].SetTarget(true);
+        cells[4, 0].SetTarget(true);
+        cells[0, 4].SetTarget(true);
     }
 
     private bool VictoryCondition4()
     {
-        // TODO
-        return false;
+        bool alive1 = cells[8, 4].IsAlive();
+        bool alive2 = cells[4, 8].IsAlive();
+        bool alive3 = cells[4, 0].IsAlive();
+        bool alive4 = cells[0, 4].IsAlive();
+
+        return (alive1 || alive2 || alive3 || alive4);
     }
 
     uint x_size_5 = 10;
@@ -507,87 +539,173 @@ public class Automaton : MonoBehaviour
         return false;
     }
 
-    uint x_size_6 = 1; // TODO
-    uint y_size_6 = 1; // TODO
+    uint x_size_6 = 8;
+    uint y_size_6 = 8;
 
     private void AutomatonInit6()
     {
-        // TODO
+        for (uint x = 0; x < 4; ++x) {
+            for (uint y = 4; y < 8; ++y) {
+                cells[x, y].SetEmpty(true);
+            }
+        }
+        for (uint x = 4; x < 8; ++x) {
+            for (uint y = 0; y < 8; ++y) {
+                cells[x, y].SetEditable(false);
+            }
+        }
+        cells[4, 7].SetTarget(true);
     }
 
     private bool VictoryCondition6()
     {
-        // TODO
-        return false;
+        return cells[4, 7].IsAlive();
     }
 
-    uint x_size_7 = 1; // TODO
-    uint y_size_7 = 1; // TODO
+    uint x_size_7 = 8;
+    uint y_size_7 = 7;
 
     private void AutomatonInit7()
     {
-        // TODO
+        for (uint x = 0; x < 4; ++x) {
+            for (uint y = 4; y < 7; ++y) {
+                cells[x, y].SetEmpty(true);
+            }
+        }
+        for (uint x = 4; x < 8; ++x) {
+            for (uint y = 0; y < 7; ++y) {
+                cells[x, y].SetEditable(false);
+            }
+        }
+        cells[7, 6].SetTarget(true);
     }
 
     private bool VictoryCondition7()
     {
-        // TODO
-        return false;
+        return cells[7, 6].IsAlive();
     }
 
-    uint x_size_8 = 1; // TODO
-    uint y_size_8 = 1; // TODO
+    uint x_size_8 = 11;
+    uint y_size_8 = 10;
 
     private void AutomatonInit8()
     {
-        // TODO
+        for (uint y = 0; y < 7; ++y) {
+            for (uint x = 3; x < 11; ++x) {
+                cells[x, y].SetEditable(false);
+            }
+        }
+        cells[2, 6].SetEditable(false);
+        cells[3, 7].SetEditable(false);
+        cells[3, 8].SetEditable(false);
+        cells[4, 7].SetEditable(false);
+        for (uint x = 3; x < 11; ++x) {
+            cells[x, 9].SetEmpty(true);
+        }
+        for (uint x = 4; x < 11; ++x) {
+            cells[x, 8].SetEmpty(true);
+        }
+        for (uint x = 5; x < 11; ++x) {
+            cells[x, 7].SetEmpty(true);
+        }
+        for (uint x = 6; x < 11; ++x) {
+            cells[x, 6].SetEmpty(true);
+        }
+        for (uint x = 7; x < 11; ++x) {
+            cells[x, 5].SetEmpty(true);
+        }
+        for (uint x = 8; x < 11; ++x) {
+            cells[x, 4].SetEmpty(true);
+        }
+        for (uint x = 9; x < 11; ++x) {
+            cells[x, 3].SetEmpty(true);
+        }
+        for (uint x = 10; x < 11; ++x) {
+            cells[x, 2].SetEmpty(true);
+        }
+        for (uint x = 0; x < 1; ++x) {
+            cells[x, 7].SetEmpty(true);
+        }
+        for (uint x = 0; x < 2; ++x) {
+            cells[x, 6].SetEmpty(true);
+        }
+        for (uint x = 0; x < 3; ++x) {
+            cells[x, 5].SetEmpty(true);
+        }
+        for (uint x = 0; x < 4; ++x) {
+            cells[x, 4].SetEmpty(true);
+        }
+        for (uint x = 0; x < 5; ++x) {
+            cells[x, 3].SetEmpty(true);
+        }
+        for (uint x = 0; x < 6; ++x) {
+            cells[x, 2].SetEmpty(true);
+        }
+        for (uint x = 0; x < 7; ++x) {
+            cells[x, 1].SetEmpty(true);
+        }
+        for (uint x = 0; x < 8; ++x) {
+            cells[x, 0].SetEmpty(true);
+        }
+        cells[10, 0].SetTarget(true);
     }
 
     private bool VictoryCondition8()
     {
-        // TODO
-        return false;
+        return cells[10, 0].IsAlive();
     }
 
-    uint x_size_9 = 1; // TODO
-    uint y_size_9 = 1; // TODO
+    // sandbox
+    uint x_size_9 = 14;
+    uint y_size_9 = 10;
 
     private void AutomatonInit9()
     {
-        // TODO
+        for (uint x = 0; x < x_size; ++x) {
+            for (uint y = 0; y < y_size; ++y) {
+                cells[x, y].sandbox_cell1 = true;
+            }
+        }
     }
 
     private bool VictoryCondition9()
     {
-        // TODO
         return false;
     }
 
-    uint x_size_10 = 1; // TODO
-    uint y_size_10 = 1; // TODO
+    // sandbox
+    uint x_size_10 = 14;
+    uint y_size_10 = 10;
 
     private void AutomatonInit10()
     {
-        // TODO
+        for (uint x = 0; x < x_size; ++x) {
+            for (uint y = 0; y < y_size; ++y) {
+                cells[x, y].sandbox_cell2 = true;
+            }
+        }
     }
 
     private bool VictoryCondition10()
     {
-        // TODO
         return false;
     }
 
-    uint x_size_11 = 1; // TODO
-    uint y_size_11 = 1; // TODO
+    // sandbox
+    uint x_size_11 = 14;
+    uint y_size_11 = 10;
 
     private void AutomatonInit11()
     {
-        // TODO
+        for (uint x = 0; x < x_size; ++x) {
+            for (uint y = 0; y < y_size; ++y) {
+                cells[x, y].sandbox_cell3 = true;
+            }
+        }
     }
 
     private bool VictoryCondition11()
     {
-        // TODO
         return false;
     }
 
