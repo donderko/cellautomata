@@ -314,6 +314,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game_logic: {fileID: 899164408}
+  enabled_sprite: {fileID: 21300026, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  disabled_sprite: {fileID: 21300030, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
 --- !u!61 &80712810
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -770,7 +772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300006, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300028, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 4
   game_logic: {fileID: 899164408}
 --- !u!61 &496335000
 BoxCollider2D:
@@ -1158,7 +1160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300018, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300040, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 10
   game_logic: {fileID: 899164408}
 --- !u!61 &716575646
 BoxCollider2D:
@@ -1286,7 +1288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300020, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300042, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 11
   game_logic: {fileID: 899164408}
 --- !u!61 &781858593
 BoxCollider2D:
@@ -1549,6 +1551,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game_logic: {fileID: 899164408}
+  enabled_sprite: {fileID: 21300024, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  disabled_sprite: {fileID: 21300028, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
 --- !u!61 &927859976
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1619,7 +1623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300012, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300034, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 7
   game_logic: {fileID: 899164408}
 --- !u!61 &940762088
 BoxCollider2D:
@@ -1747,7 +1751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300016, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300038, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 9
   game_logic: {fileID: 899164408}
 --- !u!61 &1045352689
 BoxCollider2D:
@@ -2465,7 +2469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300010, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300032, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 6
   game_logic: {fileID: 899164408}
 --- !u!61 &1390122993
 BoxCollider2D:
@@ -2593,7 +2597,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300014, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300036, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 8
   game_logic: {fileID: 899164408}
 --- !u!61 &1471481038
 BoxCollider2D:
@@ -3042,7 +3046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unsolved_img: {fileID: 21300004, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
   solved_img: {fileID: 21300026, guid: bbc355cc96a9c344eb479d8932c8a1f8, type: 3}
-  automaton_id: 5
+  automaton_id: 3
   game_logic: {fileID: 899164408}
 --- !u!61 &1798079571
 BoxCollider2D:

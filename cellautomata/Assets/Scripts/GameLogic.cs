@@ -10,6 +10,8 @@ public class GameLogic : MonoBehaviour
     private StopButtonBehavior stop_btn;
     private ResetButtonBehavior reset_btn;
     private StepButtonBehavior step_btn;
+    private LeftButtonBehavior left_btn;
+    private RightButtonBehavior right_btn;
 
     public LevelButtonBehavior[] level_buttons;
     public uint current_level_index;
@@ -30,6 +32,8 @@ public class GameLogic : MonoBehaviour
         reset_btn_obj = GameObject.Find("Reset Button");
         reset_btn = reset_btn_obj.GetComponent<ResetButtonBehavior>();
         step_btn = GameObject.Find("Step Button").GetComponent<StepButtonBehavior>();
+        left_btn = GameObject.Find("Left Button").GetComponent<LeftButtonBehavior>();
+        right_btn = GameObject.Find("Right Button").GetComponent<RightButtonBehavior>();
 
         // associate buttons with the automaton
         play_btn.automaton = automaton;
@@ -45,6 +49,17 @@ public class GameLogic : MonoBehaviour
         stop_btn_obj.SetActive(false);
         play_btn_obj.SetActive(true);
         reset_btn_obj.GetComponent<SpriteRenderer>().sprite = reset_btn.clear_img;
+
+        if (current_level_index == 0) {
+            left_btn.SetEnabledSprite(false);
+        } else {
+            left_btn.SetEnabledSprite(true);
+        }
+        if (current_level_index == level_buttons.GetLength(0) - 1) {
+            right_btn.SetEnabledSprite(false);
+        } else {
+            right_btn.SetEnabledSprite(true);
+        }
     }
 
     // called once per frame

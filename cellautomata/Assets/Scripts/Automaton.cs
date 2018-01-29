@@ -63,11 +63,59 @@ public class Automaton : MonoBehaviour
                 InitAutomaton = AutomatonInit2;
                 VictoryCondition = VictoryCondition2;
                 break;
+            case 3:
+                x_size = x_size_3;
+                y_size = y_size_3;
+                InitAutomaton = AutomatonInit3;
+                VictoryCondition = VictoryCondition3;
+                break;
+            case 4:
+                x_size = x_size_4;
+                y_size = y_size_4;
+                InitAutomaton = AutomatonInit4;
+                VictoryCondition = VictoryCondition4;
+                break;
             case 5:
                 x_size = x_size_5;
                 y_size = y_size_5;
                 InitAutomaton = AutomatonInit5;
                 VictoryCondition = VictoryCondition5;
+                break;
+            case 6:
+                x_size = x_size_6;
+                y_size = y_size_6;
+                InitAutomaton = AutomatonInit6;
+                VictoryCondition = VictoryCondition6;
+                break;
+            case 7:
+                x_size = x_size_7;
+                y_size = y_size_7;
+                InitAutomaton = AutomatonInit7;
+                VictoryCondition = VictoryCondition7;
+                break;
+            case 8:
+                x_size = x_size_8;
+                y_size = y_size_8;
+                InitAutomaton = AutomatonInit8;
+                VictoryCondition = VictoryCondition8;
+                break;
+            case 9:
+                x_size = x_size_9;
+                y_size = y_size_9;
+                InitAutomaton = AutomatonInit9;
+                VictoryCondition = VictoryCondition9;
+                break;
+            case 10:
+                x_size = x_size_10;
+                y_size = y_size_10;
+                InitAutomaton = AutomatonInit10;
+                VictoryCondition = VictoryCondition10;
+                break;
+            case 11:
+                x_size = x_size_11;
+                y_size = y_size_11;
+                InitAutomaton = AutomatonInit11;
+                VictoryCondition = VictoryCondition11;
                 break;
             default:
                 x_size = x_size_default;
@@ -402,7 +450,34 @@ public class Automaton : MonoBehaviour
         return cells[4, 2].IsAlive();
     }
 
-    // can be 11
+    uint x_size_3 = 1; // TODO
+    uint y_size_3 = 1; // TODO
+
+    private void AutomatonInit3()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition3()
+    {
+        // TODO
+        return false;
+    }
+
+    uint x_size_4 = 1; // TODO
+    uint y_size_4 = 1; // TODO
+
+    private void AutomatonInit4()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition4()
+    {
+        // TODO
+        return false;
+    }
+
     uint x_size_5 = 10;
     uint y_size_5 = 4;
 
@@ -426,6 +501,90 @@ public class Automaton : MonoBehaviour
                 return true;
             }
         }
+        return false;
+    }
+
+    uint x_size_6 = 1; // TODO
+    uint y_size_6 = 1; // TODO
+
+    private void AutomatonInit6()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition6()
+    {
+        // TODO
+        return false;
+    }
+
+    uint x_size_7 = 1; // TODO
+    uint y_size_7 = 1; // TODO
+
+    private void AutomatonInit7()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition7()
+    {
+        // TODO
+        return false;
+    }
+
+    uint x_size_8 = 1; // TODO
+    uint y_size_8 = 1; // TODO
+
+    private void AutomatonInit8()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition8()
+    {
+        // TODO
+        return false;
+    }
+
+    uint x_size_9 = 1; // TODO
+    uint y_size_9 = 1; // TODO
+
+    private void AutomatonInit9()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition9()
+    {
+        // TODO
+        return false;
+    }
+
+    uint x_size_10 = 1; // TODO
+    uint y_size_10 = 1; // TODO
+
+    private void AutomatonInit10()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition10()
+    {
+        // TODO
+        return false;
+    }
+
+    uint x_size_11 = 1; // TODO
+    uint y_size_11 = 1; // TODO
+
+    private void AutomatonInit11()
+    {
+        // TODO
+    }
+
+    private bool VictoryCondition11()
+    {
+        // TODO
         return false;
     }
 
