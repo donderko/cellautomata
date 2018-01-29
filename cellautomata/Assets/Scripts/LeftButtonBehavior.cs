@@ -24,7 +24,11 @@ public class LeftButtonBehavior : MonoBehaviour
     {
         if (game_logic != null) {
             game_logic.PreviousAutomaton();
-            audio_manager.PlayClickSound();
+            if (GetComponent<SpriteRenderer>().sprite == enabled_sprite) {
+                audio_manager.PlayClickSound();
+            } else {
+                audio_manager.PlayDudSound();
+            }
         }
     }
 

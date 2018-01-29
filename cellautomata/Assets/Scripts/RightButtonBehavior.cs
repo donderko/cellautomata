@@ -24,7 +24,11 @@ public class RightButtonBehavior : MonoBehaviour
     {
         if (game_logic != null) {
             game_logic.NextAutomaton();
-            audio_manager.PlayClickSound();
+            if (GetComponent<SpriteRenderer>().sprite == enabled_sprite) {
+                audio_manager.PlayClickSound();
+            } else {
+                audio_manager.PlayDudSound();
+            }
         }
     }
 
