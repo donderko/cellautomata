@@ -187,6 +187,8 @@ public class Automaton : MonoBehaviour
     // do this when the reset button is pressed
     public void ResetButtonAction()
     {
+        audio_manager.PlayResetSound();
+
         victory = false;
         state_saved = false;
 
@@ -369,6 +371,7 @@ public class Automaton : MonoBehaviour
 
         if (VictoryCondition()) {
             DoVictory();
+            audio_manager.PlayVictorySound();
         }
     }
 

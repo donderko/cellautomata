@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game_logic: {fileID: 899164408}
+  audio_manager: {fileID: 679929975}
   enabled_sprite: {fileID: 21300026, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
   disabled_sprite: {fileID: 21300030, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
 --- !u!61 &80712810
@@ -1094,7 +1095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  play_sound: {fileID: 8300000, guid: ef583a3cb4aadb143adb7255f6dca794, type: 3}
+  play_sound: {fileID: 8300000, guid: 06df733e2fd0c514a834ce9901c2576f, type: 3}
   play_volume: 0.5
   stop_sound: {fileID: 8300000, guid: 925a2bca4233f3c4aa182085cc85aea9, type: 3}
   stop_volume: 0.5
@@ -1102,18 +1103,26 @@ MonoBehaviour:
   toggle_volume: 0.5
   toggle_high_pitch_range: 4.5
   toggle_low_pitch_range: 0.2
+  victory_sound: {fileID: 8300000, guid: 1e4c12988fbe72040b7ce98ce28c2c37, type: 3}
+  victory_volume: 0.5
+  dud_sound: {fileID: 8300000, guid: 81a407b81fa323149b424d2336901d9e, type: 3}
+  dud_volume: 0.5
+  click_sound: {fileID: 8300000, guid: ef583a3cb4aadb143adb7255f6dca794, type: 3}
+  click_volume: 0.4
+  reset_sound: {fileID: 8300000, guid: e89cf1169d4532748b6a4f28020a7450, type: 3}
+  reset_volume: 0.5
 --- !u!4 &679929976
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 679929973}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7422392, y: 1.4025798, z: -0.13867188}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.742239, y: 1.4025798, z: -0.13867188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &716575643
 GameObject:
@@ -1551,6 +1560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game_logic: {fileID: 899164408}
+  audio_manager: {fileID: 679929975}
   enabled_sprite: {fileID: 21300024, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
   disabled_sprite: {fileID: 21300028, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
 --- !u!61 &927859976
@@ -2141,7 +2151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1286835637
 AudioSource:

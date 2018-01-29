@@ -3,6 +3,7 @@
 public class LeftButtonBehavior : MonoBehaviour
 {
     public GameLogic game_logic;
+    public AudioManagerBehavior audio_manager;
 
     public Sprite enabled_sprite;
     public Sprite disabled_sprite;
@@ -23,6 +24,7 @@ public class LeftButtonBehavior : MonoBehaviour
     {
         if (game_logic != null) {
             game_logic.PreviousAutomaton();
+            audio_manager.PlayClickSound();
         }
     }
 

@@ -3,6 +3,7 @@
 public class RightButtonBehavior : MonoBehaviour
 {
     public GameLogic game_logic;
+    public AudioManagerBehavior audio_manager;
 
     public Sprite enabled_sprite;
     public Sprite disabled_sprite;
@@ -23,6 +24,7 @@ public class RightButtonBehavior : MonoBehaviour
     {
         if (game_logic != null) {
             game_logic.NextAutomaton();
+            audio_manager.PlayClickSound();
         }
     }
 

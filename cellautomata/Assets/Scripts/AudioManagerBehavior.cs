@@ -14,6 +14,18 @@ public class AudioManagerBehavior : MonoBehaviour
     public float toggle_high_pitch_range = 4.5f;
     public float toggle_low_pitch_range = 0.2f;
 
+    public AudioClip victory_sound;
+    public float victory_volume = 0.5f;
+
+    public AudioClip dud_sound;
+    public float dud_volume = 0.5f;
+
+    public AudioClip click_sound;
+    public float click_volume = 0.4f;
+
+    public AudioClip reset_sound;
+    public float reset_volume = 0.5f;
+
     void Start ()
     {
 		
@@ -55,5 +67,32 @@ public class AudioManagerBehavior : MonoBehaviour
             source.pitch = row_normalized + 0.2f;
             source.PlayOneShot(toggle_sound, 0.3f);
         }
+    }
+
+    public void PlayResetSound()
+    {
+        source.PlayOneShot(reset_sound, reset_volume);
+    }
+    public void PlayDudSound()
+    {
+        // miss clicked or clicked on thing that cant be changed
+        source.PlayOneShot(dud_sound, dud_volume);
+    }
+    public void PlayClickSound()
+    {
+        // sounds for click on buttons or interactables
+        // that are not special
+        source.PlayOneShot(click_sound, click_volume);
+    }
+    public void PlayVictorySound()
+    {
+        source.pitch = source.pitch * 0.75f;
+        if (source.pitch > 2f) {
+            source.pitch = source.pitch * 0.17f;
+        } else if (source.pitch > 1f) {
+            source.pitch = source.pitch * 0.3f;
+
+        }
+        source.PlayOneShot(victory_sound, victory_volume);
     }
 }
