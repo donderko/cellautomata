@@ -2,16 +2,17 @@
 
 public class GameLogic : MonoBehaviour
 {
-    //public Automaton automaton_prefab;
-
-    public uint automaton_id;
     public Automaton automaton;
     private GameObject play_btn_obj;
     private GameObject stop_btn_obj;
+    private GameObject reset_btn_obj;
     private PlayButtonBehavior play_btn;
     private StopButtonBehavior stop_btn;
-    private StepButtonBehavior step_btn;
     private ResetButtonBehavior reset_btn;
+    private StepButtonBehavior step_btn;
+
+    public LevelButtonBehavior[] level_buttons;
+    public uint current_level_index;
 
     // use this for initialization
     void Start()
@@ -19,13 +20,16 @@ public class GameLogic : MonoBehaviour
         // initialize automaton
         NewAutomaton();
 
+        level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(true);
+
         // get buttons
         play_btn_obj = GameObject.Find("Play Button");
         play_btn = play_btn_obj.GetComponent<PlayButtonBehavior>();
         stop_btn_obj = GameObject.Find("Stop Button");
         stop_btn = stop_btn_obj.GetComponent<StopButtonBehavior>();
+        reset_btn_obj = GameObject.Find("Reset Button");
+        reset_btn = reset_btn_obj.GetComponent<ResetButtonBehavior>();
         step_btn = GameObject.Find("Step Button").GetComponent<StepButtonBehavior>();
-        reset_btn = GameObject.Find("Reset Button").GetComponent<ResetButtonBehavior>();
 
         // associate buttons with the automaton
         play_btn.automaton = automaton;
@@ -40,6 +44,7 @@ public class GameLogic : MonoBehaviour
     {
         stop_btn_obj.SetActive(false);
         play_btn_obj.SetActive(true);
+        reset_btn_obj.GetComponent<SpriteRenderer>().sprite = reset_btn.clear_img;
     }
 
     // called once per frame
@@ -54,25 +59,53 @@ public class GameLogic : MonoBehaviour
             play_btn_obj.SetActive(false);
             stop_btn_obj.SetActive(true);
         }
+
+        if (automaton.state_saved) {
+            reset_btn_obj.GetComponent<SpriteRenderer>().sprite = reset_btn.reinitialize_img;
+        } else {
+            reset_btn_obj.GetComponent<SpriteRenderer>().sprite = reset_btn.clear_img;
+        }
     }
 
     public void PreviousAutomaton()
     {
-        --automaton_id;
-        NewAutomaton();
-        ResetButtons();
+        if (current_level_index > 0) {
+            level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(false);
+            --current_level_index;
+            level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(true);
+            NewAutomaton();
+            ResetButtons();
+        }
     }
 
     public void NextAutomaton()
     {
-        ++automaton_id;
-        NewAutomaton();
-        ResetButtons();
+        if (current_level_index < level_buttons.GetLength(0) - 1) {
+            level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(false);
+            ++current_level_index;
+            level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(true);
+            NewAutomaton();
+            ResetButtons();
+        }
     }
 
     private void NewAutomaton()
     {
-        automaton.Initialize(automaton_id);
-        automaton.name = "Automaton " + automaton_id;
+        automaton.Initialize(level_buttons[current_level_index].automaton_id, level_buttons[current_level_index]);
+        automaton.name = "Automaton " + level_buttons[current_level_index].automaton_id;
+    }
+
+    public void LoadAutomaton(uint automaton_id)
+    {
+        level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(false);
+        for (uint i = 0; i < level_buttons.GetLength(0); ++i) {
+            if (level_buttons[i].automaton_id == automaton_id) {
+                current_level_index = i;
+                break;
+            }
+        }
+        level_buttons[current_level_index].GetComponent<Pulse>().SetEnabled(true);
+        NewAutomaton();
+        ResetButtons();
     }
 }

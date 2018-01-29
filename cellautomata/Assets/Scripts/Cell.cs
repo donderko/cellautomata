@@ -43,24 +43,10 @@ public class Cell : MonoBehaviour
     private void OnMouseDown()
     {
         if (clickable) {
-            //Automaton parent = transform.parent.gameObject.GetComponent<Automaton>();
-            //parent.source.pitch = Random.Range(parent.toggle_low_pitch_range, parent.toggle_high_pitch_range);
-            //parent.source.PlayOneShot(parent.toggle_sound, parent.toggle_volume);
             audio_manager.PlayToggleSound();
             SetAlive(!alive);
         }
     }
-
-    /*
-    private void OnMouseOver()
-    {
-        //Debug.Log("OnMouseOver");
-            //if (Input.GetMouseButtonDown(0)) { Debug.Log("GetMouseButtonDown"); }
-        if (Input.GetMouseButton(0) && clickable && !alive) {
-            SetAlive(true);
-        }
-    }
-    */
 
     // set dead or alive state
     public void SetAlive(bool alive)

@@ -6,6 +6,7 @@ public class Automaton : MonoBehaviour
     public Cell cell_prefab;
     public bool did_play_action;
     public bool did_stop_action;
+    public bool state_saved;
 
     // audio
     public AudioManagerBehavior audio_manager;
@@ -15,6 +16,7 @@ public class Automaton : MonoBehaviour
     private uint y_size = 0;
     private Action InitAutomaton;
     private Func<bool> VictoryCondition;
+    private LevelButtonBehavior level_button;
 
     // general
     private bool running;
@@ -32,17 +34,20 @@ public class Automaton : MonoBehaviour
     }
 
     // use this for initialization
-    public void Initialize(uint automaton_id)
+    public void Initialize(uint automaton_id, LevelButtonBehavior level_button)
     {
         CancelInvoke();
         DestroyCurrentCells();
 
         did_play_action = false;
         did_stop_action = false;
+        state_saved = false;
 
         running = false;
         victory = false;
         first_run = true;
+
+        this.level_button = level_button;
 
         // select automaton
         switch (automaton_id) {
@@ -135,6 +140,7 @@ public class Automaton : MonoBehaviour
     public void ResetButtonAction()
     {
         victory = false;
+        state_saved = false;
 
         if (running) {
             running = false;
@@ -143,7 +149,6 @@ public class Automaton : MonoBehaviour
             ResetAutomaton();
             LoadStates();
         } else { // paused
-            running = false;
             ResetAutomaton();
             if (!first_run) {
                 LoadStates();
@@ -185,8 +190,8 @@ public class Automaton : MonoBehaviour
     private void PauseAutomaton()
     {
         did_stop_action = true;
+        running = false;
         audio_manager.PlayStopSound();
-        //source.PlayOneShot(stop_sound, stop_volume);
         CancelInvoke();
     }
 
@@ -195,7 +200,6 @@ public class Automaton : MonoBehaviour
     {
         did_play_action = true;
         audio_manager.PlayPlaySound();
-        //source.PlayOneShot(play_sound, play_volume);
         SetAllClickable(false);
         InvokeRepeating("TickCells", 0, 0.2f);
     }
@@ -203,6 +207,7 @@ public class Automaton : MonoBehaviour
     // stores the alive/dead states of all cells
     private void SaveStates()
     {
+        state_saved = true;
         for (uint x = 0; x < x_size; ++x) {
             for (uint y = 0; y < y_size; ++y) {
                 saved_states[x, y] = cells[x, y].IsAlive();
@@ -342,6 +347,7 @@ public class Automaton : MonoBehaviour
     private void DoVictory()
     {
         victory = true;
+        level_button.SetSolved();
         PauseAutomaton();
     }
 

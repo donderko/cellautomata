@@ -73,7 +73,8 @@ MonoBehaviour:
     type: 3}
   alive_target_img: {fileID: 21300004, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
   dead_target_img: {fileID: 21300006, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
-  empty_img: {fileID: 21300018, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  empty_img: {fileID: 21300036, guid: e9dc1bd47b818b741ac1b31a7e54401b, type: 3}
+  audio_manager: {fileID: 0}
 --- !u!212 &212787561823935482
 SpriteRenderer:
   m_ObjectHideFlags: 1

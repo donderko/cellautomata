@@ -49,7 +49,11 @@ public class AudioManagerBehavior : MonoBehaviour
 
     public void PlayAutomatonSound(uint[] row_counts, uint[] column_counts)
     {
-        //component = GetComponent<ComponentName>();
-        //component.gameObject.SetActive(false);
+        int row_counts_length = row_counts.GetLength(0);
+        for (int row = 0; row < row_counts_length; ++row) {
+            float row_normalized = (float)row_counts[row] / (float)row_counts_length;
+            source.pitch = row_normalized + 0.2f;
+            source.PlayOneShot(toggle_sound, 0.3f);
+        }
     }
 }
