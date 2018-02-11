@@ -80,6 +80,10 @@ public class GameLogic : MonoBehaviour
         } else {
             reset_btn_obj.GetComponent<SpriteRenderer>().sprite = reset_btn.clear_img;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
     public void PreviousAutomaton()
