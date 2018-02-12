@@ -369,13 +369,6 @@ public class Automaton : MonoBehaviour
             }
         }
 
-        for (uint x = 0; x < x_size; ++x) {
-            Debug.Log("column_alive_counts[" + x + "] = " + column_alive_counts[x]);
-        }
-        for (uint y = 0; y < y_size; ++y) {
-            Debug.Log("row_alive_counts[" + y + "] = " + row_alive_counts[y]);
-        }
-
         // play sound
         audio_manager.PlayAutomatonSound(row_alive_counts, column_alive_counts);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WelcomeScreenBehavior : MonoBehaviour {
 
-    private uint counter = 0;
+    public IntroScreenBehavior intro;
 
 	// Use this for initialization
 	void Start () {
@@ -13,9 +13,9 @@ public class WelcomeScreenBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ++counter;
-        if (counter > 200) {
+        if (Input.anyKeyDown) {
             gameObject.SetActive(false);
+            intro.gameObject.SetActive(true);
         }
-	}
+    }
 }

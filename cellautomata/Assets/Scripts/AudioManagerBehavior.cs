@@ -15,6 +15,9 @@ public class AudioManagerBehavior : MonoBehaviour
     public float toggle_low_pitch_range = 0.2f;
 
     public AudioClip victory_sound;
+    public AudioClip victory_sound2;
+    public AudioClip victory_sound3;
+    public AudioClip victory_sound4;
     public float victory_volume = 0.5f;
 
     public AudioClip dud_sound;
@@ -91,9 +94,24 @@ public class AudioManagerBehavior : MonoBehaviour
         int row_counts_length = row_counts.GetLength(0);
         for (int row = 0; row < row_counts_length; ++row) {
             float row_normalized = (float)row_counts[row] / (float)row_counts_length;
-            source.pitch = row_normalized + 0.2f;
-            source.PlayOneShot(toggle_sound, 0.3f);
+            if (row_normalized > 0) {
+                source.pitch = row_normalized + 0.2f;
+                source.PlayOneShot(toggle_sound, 0.3f);
+            }
         }
+
+        /*
+        int row_counts_length = row_counts.GetLength(0);
+        float normalized_sum = 0;
+        for (int row = 0; row < row_counts_length; ++row) {
+            float row_normalized = (float)row_counts[row] / (float)row_counts_length;
+            normalized_sum += row_normalized;
+            //source.pitch = row_normalized + 0.2f;
+            //source.PlayOneShot(toggle_sound, 0.3f);
+        }
+        source.pitch = (normalized_sum / (float)row_counts_length) + 0.2f;
+        source.PlayOneShot(toggle_sound, 0.3f);
+        */
     }
 
     public void PlayResetSound()
@@ -113,13 +131,14 @@ public class AudioManagerBehavior : MonoBehaviour
     }
     public void PlayVictorySound()
     {
-        source.pitch = source.pitch * 0.75f;
-        if (source.pitch > 2f) {
-            source.pitch = source.pitch * 0.17f;
-        } else if (source.pitch > 1f) {
-            source.pitch = source.pitch * 0.3f;
+        StartCoroutine(CoPlayDelayedClip(victory_sound4, 0.0f, 1.0f));
+    }
 
-        }
-        source.PlayOneShot(victory_sound, victory_volume);
+    IEnumerator CoPlayDelayedClip(AudioClip clip, float delay, float pitch)
+    {
+        yield return new WaitForSeconds(delay);
+        source.pitch = pitch;
+        source.PlayOneShot(clip, victory_volume);
     }
 }
+ 
