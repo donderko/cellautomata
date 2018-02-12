@@ -38,6 +38,9 @@ public class AudioManagerBehavior : MonoBehaviour
     public AudioClip sandbox_toggle_sound3;
     public float sandbox_toggle_volume3 = 0.5f;
 
+    private AudioClip current_toggle_sound;
+    public float current_toggle_volume = 0.5f;
+
     void Start ()
     {
 		
@@ -65,38 +68,50 @@ public class AudioManagerBehavior : MonoBehaviour
         source.PlayOneShot(play_sound, play_volume);
     }
 
-    public void PlayToggleSound()
+    private void PlayCurrentToggleSound()
     {
         source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
-        source.PlayOneShot(toggle_sound, toggle_volume);
+        source.PlayOneShot(current_toggle_sound, current_toggle_volume);
+    }
+
+    public void PlayToggleSound()
+    {
+        current_toggle_sound = toggle_sound;
+        current_toggle_volume = toggle_volume;
+        PlayCurrentToggleSound();
     }
 
     public void PlaySandboxToggleSound1()
     {
-        source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
-        source.PlayOneShot(sandbox_toggle_sound1, sandbox_toggle_volume1);
+        current_toggle_sound = sandbox_toggle_sound1;
+        current_toggle_volume = sandbox_toggle_volume1;
+        PlayCurrentToggleSound();
     }
 
     public void PlaySandboxToggleSound2()
     {
-        source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
-        source.PlayOneShot(sandbox_toggle_sound2, sandbox_toggle_volume2);
+        current_toggle_sound = sandbox_toggle_sound2;
+        current_toggle_volume = sandbox_toggle_volume2;
+        PlayCurrentToggleSound();
     }
 
     public void PlaySandboxToggleSound3()
     {
-        source.pitch = Random.Range(toggle_low_pitch_range, toggle_high_pitch_range);
-        source.PlayOneShot(sandbox_toggle_sound3, sandbox_toggle_volume3);
+        current_toggle_sound = sandbox_toggle_sound3;
+        current_toggle_volume = sandbox_toggle_volume3;
+        PlayCurrentToggleSound();
     }
 
     public void PlayAutomatonSound(uint[] row_counts, uint[] column_counts)
     {
         int row_counts_length = row_counts.GetLength(0);
+        uint cap = 0;
         for (int row = 0; row < row_counts_length; ++row) {
             float row_normalized = (float)row_counts[row] / (float)row_counts_length;
-            if (row_normalized > 0) {
+            if (row_normalized > 0 && cap < 3) {
+                ++cap;
                 source.pitch = row_normalized + 0.2f;
-                source.PlayOneShot(toggle_sound, 0.3f);
+                source.PlayOneShot(current_toggle_sound, 0.3f);
             }
         }
 

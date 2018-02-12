@@ -685,8 +685,8 @@ public class Automaton : MonoBehaviour
     }
 
     // sandbox
-    uint x_size_11 = 14;
-    uint y_size_11 = 10;
+    uint x_size_11 = 7;
+    uint y_size_11 = 5;
 
     private void AutomatonInit11()
     {

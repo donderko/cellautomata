@@ -1093,12 +1093,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: ffdfb39c6f0230d4dbd740f9a4a3fd8e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 064555e50f6cb854f84297d55d38096f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 24, y: 12}
+  m_Size: {x: 3.84, y: 1.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1457,12 +1457,13 @@ MonoBehaviour:
   sandbox_toggle_sound1: {fileID: 8300000, guid: c79290b6fa3b65a4ebae3059e359f197,
     type: 3}
   sandbox_toggle_volume1: 0.5
-  sandbox_toggle_sound2: {fileID: 8300000, guid: 9499aac7dbc023741a80ac5fca81ad38,
+  sandbox_toggle_sound2: {fileID: 8300000, guid: ef583a3cb4aadb143adb7255f6dca794,
     type: 3}
   sandbox_toggle_volume2: 0.5
-  sandbox_toggle_sound3: {fileID: 8300000, guid: ef583a3cb4aadb143adb7255f6dca794,
+  sandbox_toggle_sound3: {fileID: 8300000, guid: 9499aac7dbc023741a80ac5fca81ad38,
     type: 3}
   sandbox_toggle_volume3: 0.5
+  current_toggle_volume: 0.5
 --- !u!4 &679929976
 Transform:
   m_ObjectHideFlags: 0
